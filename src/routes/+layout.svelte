@@ -1,5 +1,5 @@
 <script>
-	import NavBar from '$lib/feature/navigation/NavBar.svelte';
+	import NavBar from '$lib/features/navigation/NavBar.svelte';
 	import '../app.css';
 </script>
 

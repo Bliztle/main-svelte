@@ -1,5 +1,6 @@
 <script>
-	import Map from '$lib/feature/map/Map.svelte';
+	import Map from '$lib/features/map/Map.svelte';
+	import MapLayer from '$lib/features/map/MapLayer.svelte';
 </script>
 
 <svelte:head>
@@ -7,4 +8,6 @@
 </svelte:head>
 
 <p>Lotify</p>
-<Map />
+<Map>
+	<MapLayer />
+</Map>

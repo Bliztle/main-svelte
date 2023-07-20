@@ -1,12 +1,19 @@
 <script lang="ts">
+	import Layer from 'ol/layer/Layer';
 	import { getMapContext } from './mapContext';
-
-	// import { getContext } from 'svelte';
-	// import { mapContext } from './map';
-
-	// // const { getMap } = getContext(mapContext);
-	// getMapService();
+	import OSM from 'ol/source/OSM';
+	import { onDestroy } from 'svelte';
+	import TileLayer from 'ol/layer/Tile';
 
 	const mapContext = getMapContext();
-	console.log('Context map: ', mapContext.getMap());
+	const map = mapContext.getMap();
+	const layer = new TileLayer({
+		source: new OSM()
+	});
+
+	map.addLayer(layer);
+
+	// onDestroy(() => {
+	// 	map.removeLayer(layer);
+	// });
 </script>

@@ -6,8 +6,6 @@
 <svelte:head>
 	<title>Lotify</title>
 </svelte:head>
-
-<p>Lotify</p>
 <Map>
 	<MapLayer />
 </Map>

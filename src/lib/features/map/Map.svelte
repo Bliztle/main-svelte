@@ -16,17 +16,18 @@
 			view: new View({
 				center: [0, 0],
 				zoom: 2
-			})
+			}),
+			controls: []
 		});
 		console.log('Map initialised: ', map);
 	};
 
 	onDestroy(() => {
-		map.dispose();
+		map?.dispose();
 	});
 </script>
 
-<div use:initialise>
+<div use:initialise class="w-full h-full">
 	{#if map}
 		<slot />
 	{/if}

@@ -60,7 +60,7 @@
 			{text}
 		</h5>
 	</div>
-	<div use:trackSize class="h-fit w-fit">
+	<div use:trackSize class="w-full">
 		<slot />
 	</div>
 </div>

@@ -8,14 +8,18 @@
 	import { setupGeolocation } from './Gps';
 	import Control from 'ol/control/Control';
 	import { create } from 'ol/transform';
+	import IconCurrentLocation from '$lib/icons/IconCurrentLocation.svelte';
 
 	const mapContext = getMapContext();
 	const map = mapContext.getMap();
+	const view = map.getView();
 	const layer = new VectorLayer({
 		map,
 		source: new VectorSource()
 	});
 	const geolocation = setupGeolocation(map, layer);
+
+	let control: Control;
 
 	// TODO: Show error message
 	let error: GeolocationError | null = null;
@@ -23,17 +27,32 @@
 		error = e;
 	});
 
-	const createControl = (element: HTMLDivElement) => {
-		const control = new Control({
+	const createControl = (element: HTMLButtonElement) => {
+		control = new Control({
 			element
 		});
 		map.addControl(control);
 		console.log('control added');
 	};
 
+	const center = () => {
+		const center = geolocation.getPosition();
+		if (center) {
+			view.setCenter(center);
+			view.setZoom(16);
+		}
+	};
+
 	onDestroy(() => {
 		map.removeLayer(layer);
+		map.removeControl(control);
 	});
 </script>
 
-<div class="" use:createControl />
+<button
+	on:click={center}
+	class="h-12 w-12 bg-slate-300 shadow hover:shadow-lg rounded-full place-items-center grid"
+	use:createControl
+>
+	<IconCurrentLocation />
+</button>

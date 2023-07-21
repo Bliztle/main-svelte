@@ -8,8 +8,7 @@
 	const value = row[column.id];
 </script>
 
-<td class="border-b border-slate-100 dark:border-slate-700 p-4"
-	>xx
+<td class="border-b border-slate-100 dark:border-slate-700 p-4">
 	{value}
 </td>
 

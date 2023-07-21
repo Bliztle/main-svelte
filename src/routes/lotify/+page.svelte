@@ -19,6 +19,27 @@
 		data={[
 			{ name: 'A', type: 'B', count: 1 },
 			{ name: 'C', type: 'D', count: 2 },
+			{ name: 'C', type: 'D', count: 2 },
+			{ name: 'C', type: 'D', count: 2 },
+			{ name: 'C', type: 'D', count: 2 },
+			{ name: 'C', type: 'D', count: 2 },
+			{ name: 'C', type: 'D', count: 2 },
+			{ name: 'C', type: 'D', count: 2 },
+			{ name: 'C', type: 'D', count: 2 },
+			{ name: 'C', type: 'D', count: 2 },
+			{ name: 'C', type: 'D', count: 2 },
+			{ name: 'C', type: 'D', count: 2 },
+			{ name: 'C', type: 'D', count: 2 },
+			{ name: 'C', type: 'D', count: 2 },
+			{ name: 'C', type: 'D', count: 2 },
+			{ name: 'C', type: 'D', count: 2 },
+			{ name: 'C', type: 'D', count: 2 },
+			{ name: 'C', type: 'D', count: 2 },
+			{ name: 'C', type: 'D', count: 2 },
+			{ name: 'C', type: 'D', count: 2 },
+			{ name: 'C', type: 'D', count: 2 },
+			{ name: 'C', type: 'D', count: 2 },
+			{ name: 'C', type: 'D', count: 2 },
 			{ name: 'E', type: 'F', count: 3 }
 		]}
 	>

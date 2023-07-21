@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { isTouchEvent } from '$lib/utility/events/touch';
+
 	export let text: string;
 	const defaultOffset = 57;
 
@@ -25,25 +27,39 @@
 	};
 
 	let pressDownTime = 0;
-	const onMouseDown = (downEvent: MouseEvent) => {
-		let prevY = downEvent.clientY;
+	const onPressDown = (downEvent: MouseEvent | TouchEvent) => {
+		let prevY: number;
+
+		// Function for getting Y coordinate from event
+		const getY = (event: MouseEvent | TouchEvent) => {
+			if (isTouchEvent(event)) {
+				if (event.touches.length > 1) return prevY;
+				return event.touches[0].clientY;
+			} else return event.clientY;
+		};
+
+		prevY = getY(downEvent);
 		pressDownTime = Date.now();
 
-		const onMouseMove = (moveEvent: MouseEvent) => {
-			moveDrawer(prevY - moveEvent.clientY);
-			prevY = moveEvent.clientY;
+		const onMove = (moveEvent: MouseEvent | TouchEvent) => {
+			const y = getY(moveEvent);
+			moveDrawer(prevY - y);
+			prevY = y;
 		};
 
-		const onMouseUp = () => {
-			document.removeEventListener('mousemove', onMouseMove);
+		const moveEventName = isTouchEvent(downEvent) ? 'touchmove' : 'mousemove';
+		const releaseEventName = isTouchEvent(downEvent) ? 'touchend' : 'mouseup';
+
+		const onRelease = () => {
+			document.removeEventListener(moveEventName, onMove);
 		};
 
-		document.addEventListener('mousemove', onMouseMove);
-		document.addEventListener('mouseup', onMouseUp, { once: true });
+		document.addEventListener(moveEventName, onMove);
+		document.addEventListener(releaseEventName, onRelease, { once: true });
 	};
 
 	const onClick = () => {
-		if (Date.now() - pressDownTime > 200) return;
+		if (Date.now() - pressDownTime > 100) return;
 
 		if (isOpen) moveDrawer(-9999);
 		else moveDrawer(9999);
@@ -59,7 +75,7 @@
 	<button
 		class="p-4 cursor-pointer dark:hover:bg-gray-700 w-full text-left"
 		on:click={onClick}
-		on:mousedown={onMouseDown}
+		on:mousedown={onPressDown}
 	>
 		<span
 			class="absolute w-8 h-1 -translate-x-1/2 rounded-lg top-3 left-1/2 dark:bg-gray-600"

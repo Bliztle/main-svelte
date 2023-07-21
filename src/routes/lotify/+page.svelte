@@ -17,34 +17,33 @@
 <BottomDrawer text="Notifiers">
 	<Datagrid
 		data={[
-			{ name: 'A', type: 'B', count: 1 },
-			{ name: 'C', type: 'D', count: 2 },
-			{ name: 'C', type: 'D', count: 2 },
-			{ name: 'C', type: 'D', count: 2 },
-			{ name: 'C', type: 'D', count: 2 },
-			{ name: 'C', type: 'D', count: 2 },
-			{ name: 'C', type: 'D', count: 2 },
-			{ name: 'C', type: 'D', count: 2 },
-			{ name: 'C', type: 'D', count: 2 },
-			{ name: 'C', type: 'D', count: 2 },
-			{ name: 'C', type: 'D', count: 2 },
-			{ name: 'C', type: 'D', count: 2 },
-			{ name: 'C', type: 'D', count: 2 },
-			{ name: 'C', type: 'D', count: 2 },
-			{ name: 'C', type: 'D', count: 2 },
-			{ name: 'C', type: 'D', count: 2 },
-			{ name: 'C', type: 'D', count: 2 },
-			{ name: 'C', type: 'D', count: 2 },
-			{ name: 'C', type: 'D', count: 2 },
-			{ name: 'C', type: 'D', count: 2 },
-			{ name: 'C', type: 'D', count: 2 },
-			{ name: 'C', type: 'D', count: 2 },
-			{ name: 'C', type: 'D', count: 2 },
-			{ name: 'E', type: 'F', count: 3 }
+			{ note: 'A', distance: 438 },
+			{ note: 'C', distance: 438 },
+			{ note: 'C', distance: 438 },
+			{ note: 'C', distance: 438 },
+			{ note: 'C', distance: 438 },
+			{ note: 'C', distance: 438 },
+			{ note: 'C', distance: 438 },
+			{ note: 'C', distance: 438 },
+			{ note: 'C', distance: 438 },
+			{ note: 'C', distance: 438 },
+			{ note: 'C', distance: 438 },
+			{ note: 'C', distance: 438 },
+			{ note: 'C', distance: 438 },
+			{ note: 'C', distance: 438 },
+			{ note: 'C', distance: 438 },
+			{ note: 'C', distance: 438 },
+			{ note: 'C', distance: 438 },
+			{ note: 'C', distance: 438 },
+			{ note: 'C', distance: 438 },
+			{ note: 'C', distance: 438 },
+			{ note: 'C', distance: 438 },
+			{ note: 'C', distance: 438 },
+			{ note: 'C', distance: 438 },
+			{ note: 'E', distance: 438 }
 		]}
 	>
-		<DatagridColumn id="name" label="Name" type="text" />
-		<DatagridColumn id="type" label="Type" type="text" />
-		<DatagridColumn id="count" type="number" />
+		<DatagridColumn id="note" type="text" />
+		<DatagridColumn id="distance" label="Distance (km)" type="number" />
 	</Datagrid>
 </BottomDrawer>

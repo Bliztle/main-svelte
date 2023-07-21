@@ -44,11 +44,12 @@ export const setupGeolocation = (map: Map, layer: Vector<VectorSource>) => {
         })
     );
 
-    geolocation.on('change:position', () => {
+    const updatePosition = () => {
         const coordinates = geolocation.getPosition();
         positionFeature.setGeometry(coordinates && new Point(coordinates));
-    });
+    };
 
+    geolocation.on('change:position', updatePosition);
     geolocation.setTracking(true);
 
     return geolocation;

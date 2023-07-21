@@ -1,7 +1,9 @@
+import type { Writable } from "svelte/store";
 import type { WriteableArray } from "$lib/utility/stores/writeableArray";
 
 export interface DatagridContext {
     columns: WriteableArray<DatagridContextColumn>;
+    editRowIndex: Writable<number | null>;
 }
 
 export interface DatagridContextColumn {
@@ -10,7 +12,12 @@ export interface DatagridContextColumn {
     type: `${DatagridColumnType}`;
 }
 
-export type DatagridData = Record<DatagridContextColumn["id"], unknown>;
+export type DatagridRowData = Record<DatagridContextColumn["id"], unknown>;
+
+export interface DatagridRow {
+    index: number;
+    data: DatagridRowData;
+}
 
 export enum DatagridColumnType {
     Text = "text",

@@ -1,15 +1,24 @@
 <script lang="ts">
-	import type { DatagridContextColumn } from '../types';
+	import TextCell from './cells/TextCell.svelte';
+	import type { DatagridContextColumn, DatagridRow } from '../types';
 
-	type T = $$Generic<DatagridData>;
-	export let row: T;
+	export let row: DatagridRow;
 	export let column: DatagridContextColumn;
 
-	const value = row[column.id];
+	const getCell = () => {
+		switch (column.type) {
+			case 'text':
+				return TextCell;
+			default:
+				return TextCell;
+		}
+	};
+
+	const Cell = getCell();
 </script>
 
 <td class="border-b border-slate-100 dark:border-slate-700 p-4">
-	{value}
+	<Cell {row} {column} />
 </td>
 
 <style lang="postcss">

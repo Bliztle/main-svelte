@@ -1,18 +1,19 @@
 <script lang="ts">
 	import writeableArray from '$lib/utility/stores/writeableArray';
+	import { writable } from 'svelte/store';
 	import { setDatagridContext } from './datagridContext';
 	import InternalDataHeader from './internal/InternalDataHeader.svelte';
 	import InternalDataRow from './internal/InternalDataRow.svelte';
-	import type { DatagridContextColumn, DatagridData } from './types';
+	import type { DatagridContextColumn, DatagridRowData } from './types';
 
-	type T = $$Generic<DatagridData>;
-	export let data: T[];
+	export let data: DatagridRowData[];
 
-	const columns = writeableArray<DatagridContextColumn>();
-
-	setDatagridContext({
-		columns
+	const context = setDatagridContext({
+		columns: writeableArray<DatagridContextColumn>(),
+		editRowIndex: writable<number | null>(null)
 	});
+
+	const columns = context.columns;
 </script>
 
 <table class="table-auto w-full">
@@ -24,8 +25,13 @@
 		</tr>
 	</thead>
 	<tbody class="text-slate-500 dark:text-slate-400">
-		{#each data as row}
-			<InternalDataRow {row} />
+		{#each data as rowData, i}
+			<InternalDataRow
+				row={{
+					index: i,
+					data: rowData
+				}}
+			/>
 		{/each}
 	</tbody>
 </table>

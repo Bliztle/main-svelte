@@ -1,41 +1,33 @@
-<!-- drawer component -->
-
 <script lang="ts">
 	export let text: string;
 	const defaultOffset = 57;
 
-	let containerHeight = 0;
+	let upperLimit = 0;
+	let offset = defaultOffset;
+	$: isOpen = upperLimit - offset < 50;
+
 	const trackSize = (container: HTMLDivElement) => {
 		const observer = new ResizeObserver(() => {
-			containerHeight = container.offsetHeight;
+			upperLimit = Math.min(
+				// Upper limit from content height
+				defaultOffset + container.offsetHeight,
+
+				// Upper limit from screen height
+				document.body.offsetHeight * 0.75
+			);
 		});
 
 		observer.observe(container);
 	};
 
-	let offset = defaultOffset;
 	const moveDrawer = (distance: number) => {
-		offset = Math.max(
-			// Lower limit from drawer height
-			defaultOffset,
-
-			Math.min(
-				// The distance we are actually attempting to move the drawer
-				offset + distance,
-
-				// Upper limit from content height
-				defaultOffset + containerHeight,
-
-				// Upper limit from screen height
-				document.body.offsetHeight * 0.75
-			)
-		);
+		offset = Math.max(defaultOffset, Math.min(offset + distance, upperLimit));
 	};
 
-	let mouseDownTime = 0;
+	let pressDownTime = 0;
 	const onMouseDown = (downEvent: MouseEvent) => {
 		let prevY = downEvent.clientY;
-		mouseDownTime = Date.now();
+		pressDownTime = Date.now();
 
 		const onMouseMove = (moveEvent: MouseEvent) => {
 			moveDrawer(prevY - moveEvent.clientY);
@@ -51,14 +43,10 @@
 	};
 
 	const onClick = () => {
-		if (Date.now() - mouseDownTime > 200) return;
+		if (Date.now() - pressDownTime > 200) return;
 
-		// Move drawer to the top
-		const currentOffset = offset;
-		moveDrawer(9999);
-
-		// If it didn't move far, close it instead
-		if (Math.abs(currentOffset - offset) < 50) moveDrawer(-9999);
+		if (isOpen) moveDrawer(-9999);
+		else moveDrawer(9999);
 	};
 </script>
 
@@ -82,7 +70,10 @@
 			{text}
 		</h5>
 	</button>
-	<div class="w-full">
+	<div
+		style="height: {offset - defaultOffset}px"
+		class="w-full {isOpen ? 'overflow-auto' : 'overflow-hidden'}"
+	>
 		<div use:trackSize class="w-full">
 			<slot />
 		</div>

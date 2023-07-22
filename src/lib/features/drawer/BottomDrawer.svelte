@@ -59,7 +59,7 @@
 	};
 
 	const onClick = () => {
-		if (Date.now() - pressDownTime > 100) return;
+		if (Date.now() - pressDownTime > 200) return;
 
 		if (isOpen) moveDrawer(-9999);
 		else moveDrawer(9999);

@@ -1,13 +1,11 @@
 <script lang="ts">
 	import { getMapContext } from '../mapContext';
 	import type { GeolocationError } from 'ol/Geolocation';
-	import { Point } from 'ol/geom';
 	import VectorSource from 'ol/source/Vector';
 	import { Vector as VectorLayer } from 'ol/layer';
 	import { onDestroy } from 'svelte';
-	import { setupGeolocation } from './Gps';
+	import { setupGeolocation } from './GpsControl';
 	import Control from 'ol/control/Control';
-	import { create } from 'ol/transform';
 	import IconCurrentLocation from '$lib/icons/IconCurrentLocation.svelte';
 
 	const mapContext = getMapContext();

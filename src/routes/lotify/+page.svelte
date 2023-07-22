@@ -5,7 +5,7 @@
 	import { datagridStore } from '$lib/features/datagrid/datagridStore.js';
 	import BottomDrawer from '$lib/features/drawer/BottomDrawer.svelte';
 	import Map from '$lib/features/map/Map.svelte';
-	import Gps from '$lib/features/map/controls/Gps.svelte';
+	import GpsControl from '$lib/features/map/controls/GpsControl.svelte';
 	import MapLayer from '$lib/features/map/layers/MapLayer.svelte';
 
 	export let data;
@@ -27,7 +27,7 @@
 </svelte:head>
 <Map>
 	<MapLayer />
-	<Gps />
+	<GpsControl />
 </Map>
 <BottomDrawer text="Notifiers">
 	<Datagrid {store}>

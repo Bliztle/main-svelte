@@ -4,13 +4,19 @@
 	import { setDatagridContext } from './datagridContext';
 	import InternalDataHeader from './internal/InternalDataHeader.svelte';
 	import InternalDataRow from './internal/InternalDataRow.svelte';
-	import type { DatagridContextColumn, DatagridRowData } from './types';
+	import type { DatagridContextColumn, DatagridStore } from './types';
+	import { datagridStore } from './datagridStore';
 
-	export let data: DatagridRowData[];
+	type TRow = $$Generic<DatagridRowData>;
+
+	export let data: TRow[] | null = null;
+	export let url: string | null = null;
+	export let store: DatagridStore<TRow> = datagridStore(data, url);
 
 	const context = setDatagridContext({
 		columns: writeableArray<DatagridContextColumn>(),
-		editRowIndex: writable<number | null>(null)
+		editRowIndex: writable<number | null>(null),
+		store: store
 	});
 
 	const columns = context.columns;
@@ -25,17 +31,9 @@
 		</tr>
 	</thead>
 	<tbody class="text-slate-500 dark:text-slate-400">
-		{#each data as rowData, i}
-			<InternalDataRow
-				row={{
-					index: i,
-					data: rowData
-				}}
-			/>
+		{#each $store.rows as row, rowIndex (row)}
+			<InternalDataRow {rowIndex} />
 		{/each}
 	</tbody>
 </table>
 <slot />
-
-<style lang="postcss">
-</style>

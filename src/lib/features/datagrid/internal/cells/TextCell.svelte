@@ -1,21 +1,25 @@
 <script lang="ts">
 	import { getDatagridContext } from '../../datagridContext';
-	import type { DatagridContextColumn, DatagridRow } from '../../types';
+	import type { DatagridContextColumn } from '../../types';
 
-	export let row: DatagridRow;
+	export let rowIndex: number;
 	export let column: DatagridContextColumn;
 
-	$: value = row.data[column.id];
-	$: currentValue = value;
-
 	let element: HTMLInputElement;
-
 	const context = getDatagridContext();
 	const editRowIndex = context.editRowIndex;
-	$: isEditing = $editRowIndex === row.index;
+	let store = context.store;
+
+	$: value = $store.rows[rowIndex][column.id];
+	$: currentValue = value;
+	$: isEditing = $editRowIndex === rowIndex;
 
 	const onChange = (e: Event) => {
-		row.data[column.id] = (e.target as HTMLInputElement).value;
+		context.store.setCell(
+			rowIndex,
+			column.id,
+			(e.target as HTMLInputElement).value
+		);
 	};
 
 	// To keep the text in the same position when editing, we need to adjust the padding of the parent element

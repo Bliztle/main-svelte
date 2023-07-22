@@ -1,8 +1,8 @@
 <script lang="ts">
 	import TextCell from './cells/TextCell.svelte';
-	import type { DatagridContextColumn, DatagridRow } from '../types';
+	import type { DatagridContextColumn } from '../types';
 
-	export let row: DatagridRow;
+	export let rowIndex: number;
 	export let column: DatagridContextColumn;
 
 	const getCell = () => {
@@ -18,7 +18,7 @@
 </script>
 
 <td class="border-b border-slate-100 dark:border-slate-700 p-4">
-	<Cell {row} {column} />
+	<Cell {rowIndex} {column} />
 </td>
 
 <style lang="postcss">

@@ -1,9 +1,23 @@
 import type { HTMLInputAttributes } from 'svelte/elements';
+import type { ValueOf } from '$lib/utility/types/objects';
 import type { Writable } from "svelte/store";
 import type { WriteableArray } from "$lib/utility/stores/writeableArray";
-export interface DatagridContext {
+
+export interface DatagridStore<T extends DatagridRow = DatagridRow> extends Writable<DatagridStoreData<T>> {
+    setRow: (rowIndex: number, row: T) => void;
+    setCell: (rowIndex: number, columnId: DatagridContextColumn["id"], cellData: ValueOf<T>) => void;
+}
+
+export interface DatagridStoreData<T extends DatagridRow = DatagridRow> {
+    loading: boolean;
+    error: Error | null;
+    rows: T[];
+}
+
+export interface DatagridContext<T extends DatagridRow> {
     columns: WriteableArray<DatagridContextColumn>;
     editRowIndex: Writable<number | null>;
+    store: DatagridStore<T>;
 }
 
 export interface DatagridContextColumn {
@@ -13,12 +27,7 @@ export interface DatagridContextColumn {
     inputProps: HTMLInputAttributes;
 };
 
-export type DatagridRowData = Record<DatagridContextColumn["id"], unknown>;
-
-export interface DatagridRow {
-    index: number;
-    data: DatagridRowData;
-}
+export type DatagridRow = Record<DatagridContextColumn["id"], unknown>;
 
 export enum DatagridColumnType {
     Text = "text",

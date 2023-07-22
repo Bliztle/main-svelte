@@ -1,20 +1,19 @@
 <script lang="ts">
 	import { getDatagridContext } from '../datagridContext';
-	import type { DatagridRow } from '../types';
 	import InternalDataCell from './InternalDataCell.svelte';
 
-	export let row: DatagridRow;
+	export let rowIndex: number;
 
 	const context = getDatagridContext();
 	const columns = context.columns;
 
 	const onDoubleClick = () => {
-		context.editRowIndex.set(row.index);
+		context.editRowIndex.set(rowIndex);
 	};
 </script>
 
 <tr on:dblclick={onDoubleClick}>
 	{#each $columns as column}
-		<InternalDataCell {row} {column} />
+		<InternalDataCell {rowIndex} {column} />
 	{/each}
 </tr>

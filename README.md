@@ -1,38 +1,17 @@
-# create-svelte
+# main-svelte
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+This is just a small project I created on a vacation to learn Svelte. Currently it contains a map which will eventually allow you to mark down notifiers at various locations and then get notified when you are near them.
 
-## Creating a project
+I have aimed to use as few libraries as possible and instead write everything from scratch, as a way of getting more experience with Svelte, and also to properly learn Tailwind CSS. There are however still a few libraries in use.
 
-If you're seeing this, you've probably already done this step. Congrats!
+| Library             | Purpose                                                                                                                                                    |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Openlayers          | Creating the map                                                                                                                                           |
+| Tailwind            | Styling                                                                                                                                                    |
+| @table/icons-svelte | Icon library as there is no learning process in finding and pasting icons instead<br><br>`warning`: This currently breaks SSR. A manual fix is noted below |
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## Development
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+### Known issues
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+The node module `@tabler/icons-svelte` currently contains an issue which breaks SSR on pages loading icons due to a wrong path in `package.json`. I have posted a temporary fix for this issue [here](https://github.com/tabler/tabler-icons/issues/693#issuecomment-1646684979). Hopefully it will be resolved soon.

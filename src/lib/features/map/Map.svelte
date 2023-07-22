@@ -19,7 +19,6 @@
 			}),
 			controls: []
 		});
-		console.log('Map initialised: ', map);
 	};
 
 	onDestroy(() => {

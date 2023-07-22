@@ -30,7 +30,6 @@
 			element
 		});
 		map.addControl(control);
-		console.log('control added');
 	};
 
 	const center = () => {

@@ -3,15 +3,17 @@
 	import View from 'ol/View';
 	import { setMapContext } from './mapContext';
 	import { onDestroy } from 'svelte';
+	import { readable, writable } from 'svelte/store';
 
-	let map: Map;
+	let _map: Map;
+	let map = readable<Map>(undefined, (set) => set(_map));
 
 	setMapContext({
-		getMap: () => map
+		map
 	});
 
 	const initialise = (target: HTMLDivElement) => {
-		map = new Map({
+		_map = new Map({
 			target,
 			view: new View({
 				center: [0, 0],
@@ -22,12 +24,12 @@
 	};
 
 	onDestroy(() => {
-		map?.dispose();
+		_map?.dispose();
 	});
 </script>
 
 <div use:initialise class="w-full h-full">
-	{#if map}
+	{#if _map}
 		<slot />
 	{/if}
 </div>

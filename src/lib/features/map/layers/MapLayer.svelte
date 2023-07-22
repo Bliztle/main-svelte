@@ -4,12 +4,12 @@
 	import TileLayer from 'ol/layer/Tile';
 
 	const mapContext = getMapContext();
-	const map = mapContext.getMap();
+	const map = mapContext.map;
 	const layer = new TileLayer({
 		source: new OSM()
 	});
 
-	map.addLayer(layer);
+	$map.addLayer(layer);
 
 	// onDestroy(() => {
 	// 	map.removeLayer(layer);

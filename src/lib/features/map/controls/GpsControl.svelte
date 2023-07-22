@@ -9,13 +9,13 @@
 	import { IconCurrentLocation } from '@tabler/icons-svelte';
 
 	const mapContext = getMapContext();
-	const map = mapContext.getMap();
-	const view = map.getView();
+	const map = mapContext.map;
+	const view = $map.getView();
 	const layer = new VectorLayer({
-		map,
+		map: $map,
 		source: new VectorSource()
 	});
-	const geolocation = setupGeolocation(map, layer);
+	const geolocation = setupGeolocation($map, layer);
 
 	let control: Control;
 
@@ -29,7 +29,7 @@
 		control = new Control({
 			element
 		});
-		map.addControl(control);
+		$map.addControl(control);
 	};
 
 	const center = () => {
@@ -41,8 +41,8 @@
 	};
 
 	onDestroy(() => {
-		map.removeLayer(layer);
-		map.removeControl(control);
+		$map.removeLayer(layer);
+		$map.removeControl(control);
 	});
 </script>
 

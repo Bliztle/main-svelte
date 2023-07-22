@@ -1,13 +1,16 @@
 <script>
+	import { navigating } from '$app/stores';
+	import FlexColumn from '$lib/features/layout/FlexColumn.svelte';
+	import LoadingSpinner from '$lib/features/layout/LoadingSpinner.svelte';
 	import NavBar from '$lib/features/navigation/NavBar.svelte';
 	import '../app.css';
 </script>
 
-<div class="h-screen w-screen flex flex-col">
-	<div class="flex-none">
-		<NavBar />
-	</div>
-	<div class="flex-1">
+<FlexColumn>
+	<NavBar slot="header" />
+	{#if $navigating}
+		<LoadingSpinner />
+	{:else}
 		<slot />
-	</div>
-</div>
+	{/if}
+</FlexColumn>

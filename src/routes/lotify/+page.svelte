@@ -5,6 +5,21 @@
 	import Map from '$lib/features/map/Map.svelte';
 	import Gps from '$lib/features/map/controls/Gps.svelte';
 	import MapLayer from '$lib/features/map/layers/MapLayer.svelte';
+
+	let data = Array.from({ length: 20 }, (_, i) => ({
+		id: i,
+		note: 'A',
+		distance: 10000
+	}));
+
+	setInterval(() => {
+		data = data.map((d) => ({
+			...d,
+			distance: d.distance - 1
+		}));
+	}, 10000);
+
+	console.log(data);
 </script>
 
 <svelte:head>
@@ -15,34 +30,7 @@
 	<Gps />
 </Map>
 <BottomDrawer text="Notifiers">
-	<Datagrid
-		data={[
-			{ note: 'A', distance: 438 },
-			{ note: 'C', distance: 438 },
-			{ note: 'C', distance: 438 },
-			{ note: 'C', distance: 438 },
-			{ note: 'C', distance: 438 },
-			{ note: 'C', distance: 438 },
-			{ note: 'C', distance: 438 },
-			{ note: 'C', distance: 438 },
-			{ note: 'C', distance: 438 },
-			{ note: 'C', distance: 438 },
-			{ note: 'C', distance: 438 },
-			{ note: 'C', distance: 438 },
-			{ note: 'C', distance: 438 },
-			{ note: 'C', distance: 438 },
-			{ note: 'C', distance: 438 },
-			{ note: 'C', distance: 438 },
-			{ note: 'C', distance: 438 },
-			{ note: 'C', distance: 438 },
-			{ note: 'C', distance: 438 },
-			{ note: 'C', distance: 438 },
-			{ note: 'C', distance: 438 },
-			{ note: 'C', distance: 438 },
-			{ note: 'C', distance: 438 },
-			{ note: 'E', distance: 438 }
-		]}
-	>
+	<Datagrid {data}>
 		<DatagridColumn id="note" type="text" />
 		<DatagridColumn id="distance" label="Distance (km)" type="number" />
 	</Datagrid>

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Datagrid from '$lib/features/datagrid/Datagrid.svelte';
 	import DatagridColumn from '$lib/features/datagrid/DatagridColumn.svelte';
 	import BottomDrawer from '$lib/features/drawer/BottomDrawer.svelte';
@@ -6,14 +6,11 @@
 	import Gps from '$lib/features/map/controls/Gps.svelte';
 	import MapLayer from '$lib/features/map/layers/MapLayer.svelte';
 
-	let data = Array.from({ length: 20 }, (_, i) => ({
-		id: i,
-		note: 'A',
-		distance: 10000
-	}));
+	export let data;
+	let gridData = data.gridData;
 
 	setInterval(() => {
-		data = data.map((d) => ({
+		gridData = gridData.map((d) => ({
 			...d,
 			distance: d.distance - 1
 		}));
@@ -30,7 +27,7 @@
 	<Gps />
 </Map>
 <BottomDrawer text="Notifiers">
-	<Datagrid {data}>
+	<Datagrid data={gridData}>
 		<DatagridColumn id="note" type="text" />
 		<DatagridColumn id="distance" label="Distance (km)" type="number" />
 	</Datagrid>

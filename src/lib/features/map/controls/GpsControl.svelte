@@ -6,7 +6,7 @@
 	import { onDestroy } from 'svelte';
 	import { setupGeolocation } from './GpsControl';
 	import Control from 'ol/control/Control';
-	import IconCurrentLocation from '$lib/icons/IconCurrentLocation.svelte';
+	import { IconCurrentLocation } from '@tabler/icons-svelte';
 
 	const mapContext = getMapContext();
 	const map = mapContext.getMap();
@@ -52,5 +52,6 @@
 	class="h-12 w-12 bg-slate-300 shadow hover:shadow-lg rounded-full place-items-center grid"
 	use:createControl
 >
+	<!-- <IconCurrentLocation /> -->
 	<IconCurrentLocation />
 </button>

@@ -37,6 +37,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@tabler/icons-svelte": "^2.28.0",
 		"ol": "^7.4.0"
 	}
 }

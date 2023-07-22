@@ -1,4 +1,4 @@
-<div class="h-screen w-screen flex flex-col">
+<div class="h-full w-full flex flex-col">
 	<div class="flex-none">
 		<slot name="header" />
 	</div>

@@ -6,11 +6,13 @@
 	import '../app.css';
 </script>
 
-<FlexColumn>
-	<NavBar slot="header" />
-	{#if $navigating}
-		<LoadingSpinner />
-	{:else}
-		<slot />
-	{/if}
-</FlexColumn>
+<div class="h-screen w-screen">
+	<FlexColumn>
+		<NavBar slot="header" />
+		{#if $navigating}
+			<LoadingSpinner />
+		{:else}
+			<slot />
+		{/if}
+	</FlexColumn>
+</div>

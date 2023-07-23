@@ -9,6 +9,7 @@
 	import { IconCurrentLocation } from '@tabler/icons-svelte';
 
 	const mapContext = getMapContext();
+	const controlContainers = mapContext.controlContainers;
 	const map = mapContext.map;
 	const view = $map.getView();
 	const layer = new VectorLayer({
@@ -27,7 +28,8 @@
 
 	const createControl = (element: HTMLButtonElement) => {
 		control = new Control({
-			element
+			element,
+			target: $controlContainers.right
 		});
 		$map.addControl(control);
 	};

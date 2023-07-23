@@ -39,7 +39,7 @@
 
 			const coordinates = (e.feature.getGeometry() as Point).getCoordinates();
 
-			const response = await fetch($page.url.pathname + '?/createPoint', {
+			const response = await fetch($page.url.pathname, {
 				method: 'POST',
 				body: JSON.stringify({
 					note: 'New notifier from map',

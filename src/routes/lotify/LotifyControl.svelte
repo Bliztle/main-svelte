@@ -24,13 +24,12 @@
 	});
 
 	let control: Control;
-	let draw: Draw;
+	let draw = new Draw({
+		source,
+		type: 'Point'
+	});
 
 	const onControlClick = () => {
-		draw ??= new Draw({
-			source,
-			type: 'Point'
-		});
 		$map.addInteraction(draw);
 
 		draw.once('drawend', async (e) => {

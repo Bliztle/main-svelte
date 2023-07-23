@@ -37,21 +37,33 @@ export const datagridStore = <T extends DatagridRow>(rows?: T[] | null, url?: st
 
     init();
 
+    const addRow = (row: T) => update((data) => {
+        return {
+            ...data,
+            rows: [...data.rows, row],
+        };
+    });
+
+    const setRow = (rowIndex: number, row: T) => update((data) => {
+        return {
+            ...data,
+            rows: data.rows.map((r, i) => i === rowIndex ? row : r),
+        };
+    });
+
+    const setCell = (rowIndex: number, columnId: DatagridContextColumn["id"], cellData: ValueOf<T>) => update((data) => {
+        return {
+            ...data,
+            rows: data.rows.map((r, i) => i === rowIndex ? { ...r, [columnId]: cellData } : r)
+        };
+    });
+
     return {
         subscribe,
         set,
         update,
-        setRow: (rowIndex: number, row: T) => update((data) => {
-            return {
-                ...data,
-                rows: data.rows.map((r, i) => i === rowIndex ? row : r),
-            };
-        }),
-        setCell: (rowIndex: number, columnId: DatagridContextColumn["id"], cellData: ValueOf<T>) => update((data) => {
-            return {
-                ...data,
-                rows: data.rows.map((r, i) => i === rowIndex ? { ...r, [columnId]: cellData } : r)
-            };
-        }),
+        addRow,
+        setRow,
+        setCell
     };
 };

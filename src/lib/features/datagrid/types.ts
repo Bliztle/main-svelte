@@ -4,6 +4,7 @@ import type { Writable } from "svelte/store";
 import type { WriteableArray } from "$lib/utility/stores/writeableArray";
 
 export interface DatagridStore<T extends DatagridRow = DatagridRow> extends Writable<DatagridStoreData<T>> {
+    addRow: (row: T) => void;
     setRow: (rowIndex: number, row: T) => void;
     setCell: (rowIndex: number, columnId: DatagridContextColumn["id"], cellData: ValueOf<T>) => void;
 }

@@ -7,19 +7,16 @@
 	import Map from '$lib/features/map/Map.svelte';
 	import GpsControl from '$lib/features/map/controls/GpsControl.svelte';
 	import MapLayer from '$lib/features/map/layers/MapLayer.svelte';
+	import LotifyControl from './LotifyControl.svelte';
+	import { setLotifyContext } from './lotifyContext';
 
 	export let data;
-	const store = datagridStore(data.gridData, $page.url.pathname);
 
-	setInterval(() => {
-		store.update((s) => ({
-			...s,
-			rows: s.rows.map((r) => ({
-				...r,
-				distance: r.distance - 1
-			}))
-		}));
-	}, 10000);
+	const store = datagridStore(data.pointsData, $page.url.pathname);
+
+	setLotifyContext({
+		pointsDataStore: store
+	});
 </script>
 
 <svelte:head>
@@ -28,6 +25,7 @@
 <Map>
 	<MapLayer />
 	<GpsControl />
+	<LotifyControl />
 </Map>
 <BottomDrawer text="Notifiers">
 	<Datagrid {store}>

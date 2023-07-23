@@ -4,12 +4,16 @@
 	import { setMapContext } from './mapContext';
 	import { onDestroy } from 'svelte';
 	import { readable, writable } from 'svelte/store';
+	import type { ControlContainers } from './types';
+	import ControlContainer from './controls/ControlContainer.svelte';
 
 	let _map: Map;
 	let map = readable<Map>(undefined, (set) => set(_map));
+	let controlContainers = writable<ControlContainers>();
 
 	setMapContext({
-		map
+		map,
+		controlContainers
 	});
 
 	const initialise = (target: HTMLDivElement) => {
@@ -30,6 +34,9 @@
 
 <div use:initialise class="w-full h-full">
 	{#if _map}
-		<slot />
+		<ControlContainer />
+		{#if $controlContainers}
+			<slot />
+		{/if}
 	{/if}
 </div>

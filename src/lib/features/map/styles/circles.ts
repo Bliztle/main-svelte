@@ -1,4 +1,4 @@
-import { Circle, Fill, Style } from "ol/style";
+import { Circle, Fill, Stroke, Style } from "ol/style";
 
 export const yellowCircle = new Style({
     image: new Circle({
@@ -6,5 +6,18 @@ export const yellowCircle = new Style({
             color: 'yellow'
         }),
         radius: 20
+    })
+});
+
+export const positionCircle = new Style({
+    image: new Circle({
+        radius: 6,
+        fill: new Fill({
+            color: '#3399CC'
+        }),
+        stroke: new Stroke({
+            color: '#fff',
+            width: 2
+        })
     })
 });

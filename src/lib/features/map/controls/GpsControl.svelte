@@ -1,24 +1,30 @@
 <script lang="ts">
 	import { getMapContext } from '../mapContext';
-	import type { GeolocationError } from 'ol/Geolocation';
+	import Geolocation, { type GeolocationError } from 'ol/Geolocation';
 	import VectorSource from 'ol/source/Vector';
 	import { Vector as VectorLayer } from 'ol/layer';
 	import { onDestroy } from 'svelte';
-	import { setupGeolocation } from './GpsControl';
 	import Control from 'ol/control/Control';
 	import { IconCurrentLocation } from '@tabler/icons-svelte';
+	import Feature from 'ol/Feature';
+	import { Point } from 'ol/geom';
+	import { positionCircle } from '../styles/circles';
 
 	const mapContext = getMapContext();
 	const controlContainers = mapContext.controlContainers;
 	const map = mapContext.map;
 	const view = $map.getView();
+	const source = new VectorSource();
 	const layer = new VectorLayer({
 		map: $map,
-		source: new VectorSource()
+		source
 	});
-	const geolocation = setupGeolocation($map, layer);
-
-	let control: Control;
+	export let geolocation = new Geolocation({
+		trackingOptions: {
+			enableHighAccuracy: true
+		},
+		projection: view.getProjection()
+	});
 
 	// TODO: Show error message
 	let error: GeolocationError | null = null;
@@ -26,13 +32,22 @@
 		error = e;
 	});
 
-	const createControl = (element: HTMLButtonElement) => {
-		control = new Control({
-			element,
-			target: $controlContainers.right
-		});
-		$map.addControl(control);
-	};
+	const accuracyFeature = new Feature();
+	const positionFeature = new Feature();
+	positionFeature.setStyle(positionCircle); // Setting this in the constructor apparently doesn't work
+	source.addFeatures([accuracyFeature, positionFeature]);
+
+	geolocation.on('change:accuracyGeometry', () => {
+		console.log(1);
+		accuracyFeature.setGeometry(geolocation.getAccuracyGeometry() ?? undefined); // There are typing inconsistencies between these methods' implementations
+	});
+
+	geolocation.on('change:position', () => {
+		const coordinates = geolocation.getPosition();
+		positionFeature.setGeometry(coordinates && new Point(coordinates));
+	});
+
+	geolocation.setTracking(true);
 
 	const center = () => {
 		const center = geolocation.getPosition();
@@ -40,6 +55,15 @@
 			view.setCenter(center);
 			view.setZoom(16);
 		}
+	};
+
+	let control: Control;
+	const createControl = (element: HTMLButtonElement) => {
+		control = new Control({
+			element,
+			target: $controlContainers.right
+		});
+		$map.addControl(control);
 	};
 
 	onDestroy(() => {

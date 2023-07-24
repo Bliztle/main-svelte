@@ -11,6 +11,7 @@
 	import { getLotifyContext } from './lotifyContext';
 	import { page } from '$app/stores';
 	import type { Point } from 'ol/geom';
+	import { distance, type Coordinate } from 'ol/coordinate';
 
 	const mapContext = getMapContext();
 	const lotifyContext = getLotifyContext();
@@ -29,6 +30,8 @@
 		type: 'Point'
 	});
 
+	let lastCoordinates: Coordinate | null = null;
+
 	const onControlClick = () => {
 		$map.addInteraction(draw);
 
@@ -37,6 +40,14 @@
 			e.feature.setStyle([yellowCircle, bellIcon]);
 
 			const coordinates = (e.feature.getGeometry() as Point).getCoordinates();
+
+			console.log(coordinates);
+
+			if (lastCoordinates) {
+				console.log('Distance: ', distance(lastCoordinates, coordinates));
+			}
+
+			lastCoordinates = coordinates;
 
 			const response = await fetch($page.url.pathname, {
 				method: 'POST',

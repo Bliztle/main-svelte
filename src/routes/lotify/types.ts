@@ -1,11 +1,13 @@
+import type { Coordinate } from "ol/coordinate";
 import type { DatagridStore } from "$lib/features/datagrid/types";
-import type { Indexable } from "$lib/utility/types/objects";
 
-export type LotifyPointData = Indexable<{
+// type to enable indexing
+export type LotifyPointData = {
     id: number;
     note: string;
-    distance: number;
-}>;
+    coordinates: Coordinate;
+    distance?: number;
+};
 
 export interface LotifyContext {
     pointsDataStore: DatagridStore<LotifyPointData>;

@@ -15,7 +15,7 @@ export interface DatagridStoreData<T extends DatagridRow = DatagridRow> {
     rows: T[];
 }
 
-export interface DatagridContext<T extends DatagridRow> {
+export interface DatagridContext<T extends DatagridRow = DatagridRow> {
     columns: WriteableArray<DatagridContextColumn>;
     editRowIndex: Writable<number | null>;
     store: DatagridStore<T>;
@@ -25,7 +25,8 @@ export interface DatagridContextColumn {
     label: string;
     id: string | number;
     type: `${DatagridColumnType}`;
-    inputProps: HTMLInputAttributes;
+    inputProps?: HTMLInputAttributes;
+    readonly?: boolean;
 };
 
 export type DatagridRow = Record<DatagridContextColumn["id"], unknown>;

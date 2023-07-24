@@ -1,17 +1,23 @@
 <script lang="ts">
+	import type { PartialBy } from '$lib/utility/types/objects';
 	import { getDatagridContext } from './datagridContext';
 	import type { DatagridContextColumn } from './types';
 
-	export let id: DatagridContextColumn['id'];
-	export let label: DatagridContextColumn['label'] = id.toString();
-	export let type: DatagridContextColumn['type'];
-	export let inputProps: DatagridContextColumn['inputProps'] = {};
+	// Make defaulted values optional, and omit declared props from RestProps
+	interface $$Props extends PartialBy<DatagridContextColumn, 'label'> {}
+	type RestProps = Omit<$$Props, 'id'>;
 
-	label = label[0].toUpperCase() + label.slice(1);
+	// Only explicitly declare props which are actively used
+	export let id: $$Props['id'];
+
+	const strId = id.toString();
+	const defaults = {
+		label: strId[0].toUpperCase() + strId.slice(1)
+	};
 
 	const context = getDatagridContext();
 	context.columns.update((columns) => [
 		...columns,
-		{ id, label, type, inputProps }
+		{ id, ...defaults, ...($$restProps as RestProps) }
 	]);
 </script>

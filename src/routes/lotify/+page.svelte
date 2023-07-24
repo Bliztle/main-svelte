@@ -36,6 +36,15 @@
 			});
 		});
 	}
+
+	const displayDistance = (distance: unknown) => {
+		if (typeof distance !== 'number') return 'Unknown';
+
+		if (distance < 1000) return `${distance.toFixed(0)} m`;
+		if (distance < 10000) return `${(distance / 1000).toFixed(2)} km`;
+		if (distance < 100000) return `${(distance / 1000).toFixed(1)} km`;
+		return `${(distance / 1000).toFixed(0)} km`;
+	};
 </script>
 
 <svelte:head>
@@ -49,6 +58,12 @@
 <BottomDrawer text="Notifiers">
 	<Datagrid {store}>
 		<DatagridColumn id="note" type="text" />
-		<DatagridColumn id="distance" label="Distance" type="number" />
+		<DatagridColumn
+			id="distance"
+			label="Distance"
+			type="number"
+			display={displayDistance}
+			readonly
+		/>
 	</Datagrid>
 </BottomDrawer>

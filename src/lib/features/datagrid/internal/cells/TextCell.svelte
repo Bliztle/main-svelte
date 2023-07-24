@@ -12,7 +12,7 @@
 
 	$: value = $store.rows[rowIndex][column.id];
 	$: currentValue = value;
-	$: isEditing = $editRowIndex === rowIndex;
+	$: isEditing = !column.readonly && $editRowIndex === rowIndex;
 
 	const onChange = (e: Event) => {
 		context.store.setCell(
@@ -51,8 +51,9 @@
 		on:change={onChange}
 		type="text"
 		class="{column.inputProps
-			.class} pl-2 pr-2 appearance-none rounded w-full py-2 px-4 leading-tight border-2 focus:outline-none dark:bg-gray-700 border-gray-700 focus:border-purple-500"
+			?.class} pl-2 pr-2 appearance-none rounded w-full py-2 px-4 leading-tight border-2 focus:outline-none dark:bg-gray-700 border-gray-700 focus:border-purple-500"
+		readonly={column.readonly}
 	/>
 {:else}
-	{value}
+	{column.display?.(value) ?? value}
 {/if}

@@ -27,6 +27,7 @@ export interface DatagridContextColumn {
     type: `${DatagridColumnType}`;
     inputProps?: HTMLInputAttributes;
     readonly?: boolean;
+    display?: (value: unknown) => string;
 };
 
 export type DatagridRow = Record<DatagridContextColumn["id"], unknown>;

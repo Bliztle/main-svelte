@@ -1,12 +1,12 @@
 import { writable, type Writable } from "svelte/store";
 
-export interface WriteableArray<T> extends Writable<T[]> {
+export interface WritableArray<T> extends Writable<T[]> {
     add: (item: T) => void;
     remove: (item: T) => void;
     clear: () => void;
 }
 
-const writeableArray = <T>(value: T[] = []): WriteableArray<T> => {
+const writableArray = <T>(value: T[] = []): WritableArray<T> => {
     const { subscribe, set, update } = writable<T[]>(value);
 
     return {
@@ -19,4 +19,4 @@ const writeableArray = <T>(value: T[] = []): WriteableArray<T> => {
     };
 };
 
-export default writeableArray;
+export default writableArray;

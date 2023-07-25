@@ -1,5 +1,5 @@
 <script lang="ts">
-	import writeableArray from '$lib/utility/stores/writeableArray';
+	import writableArray from '$lib/utility/stores/writableArray';
 	import { writable } from 'svelte/store';
 	import { setDatagridContext } from './datagridContext';
 	import InternalDataHeader from './internal/InternalDataHeader.svelte';
@@ -14,7 +14,7 @@
 	export let store: DatagridStore<TRow> = datagridStore(data, url);
 
 	const context = setDatagridContext({
-		columns: writeableArray<DatagridContextColumn>(),
+		columns: writableArray<DatagridContextColumn>(),
 		editRowIndex: writable<number | null>(null),
 		store: store
 	});

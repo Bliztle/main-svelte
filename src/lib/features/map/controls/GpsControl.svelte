@@ -17,7 +17,8 @@
 	const source = new VectorSource();
 	const layer = new VectorLayer({
 		map: $map,
-		source
+		source,
+		zIndex: Infinity
 	});
 	export let geolocation = new Geolocation({
 		trackingOptions: {

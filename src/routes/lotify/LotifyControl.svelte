@@ -10,18 +10,21 @@
 	import { bellIcon } from '$lib/features/map/styles/icons';
 	import { getLotifyContext } from './lotifyContext';
 	import { page } from '$app/stores';
-	import type { Point } from 'ol/geom';
-	import { distance, type Coordinate } from 'ol/coordinate';
+	import { Point } from 'ol/geom';
+	import Feature from 'ol/Feature';
 
 	const mapContext = getMapContext();
 	const lotifyContext = getLotifyContext();
 	const lotifyPointsDataStore = lotifyContext.pointsDataStore;
 	const controlContainers = mapContext.controlContainers;
 	const map = mapContext.map;
+
+	const pointStyle = [yellowCircle, bellIcon];
 	const source = new VectorSource();
 	const layer = new VectorLayer({
 		map: $map,
-		source
+		source,
+		zIndex: 1
 	});
 
 	let control: Control;
@@ -30,24 +33,31 @@
 		type: 'Point'
 	});
 
-	let lastCoordinates: Coordinate | null = null;
+	// Keep map features updated
+	$: {
+		source.clear();
+		source.addFeatures(
+			$lotifyPointsDataStore.rows.map((row) => {
+				const feature = new Feature({
+					geometry: new Point(row.coordinates)
+				});
+				feature.setStyle(pointStyle);
+
+				return feature;
+			})
+		);
+	}
 
 	const onControlClick = () => {
 		$map.addInteraction(draw);
 
 		draw.once('drawend', async (e) => {
 			$map.removeInteraction(draw);
-			e.feature.setStyle([yellowCircle, bellIcon]);
+			e.feature.setStyle(pointStyle);
 
 			const coordinates = (e.feature.getGeometry() as Point).getCoordinates();
 
 			console.log(coordinates);
-
-			if (lastCoordinates) {
-				console.log('Distance: ', distance(lastCoordinates, coordinates));
-			}
-
-			lastCoordinates = coordinates;
 
 			const response = await fetch($page.url.pathname, {
 				method: 'POST',

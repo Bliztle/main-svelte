@@ -3,9 +3,11 @@
 	import FlexColumn from '$lib/features/layout/FlexColumn.svelte';
 	import LoadingSpinner from '$lib/features/layout/LoadingSpinner.svelte';
 	import NavBar from '$lib/features/navigation/NavBar.svelte';
-	import '../app.css';
+	import CssImport from './CssImport.svelte';
+	// import '../app.css';
 </script>
 
+<CssImport />
 <div class="h-screen w-screen">
 	<FlexColumn>
 		<NavBar slot="header" />

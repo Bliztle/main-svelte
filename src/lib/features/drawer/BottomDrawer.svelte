@@ -13,12 +13,11 @@
 			upperLimit = Math.min(
 				// Upper limit from content height
 				defaultOffset + container.offsetHeight,
-
 				// Upper limit from screen height
-				document.body.offsetHeight * 0.75
+				// document.body.offsetHeight * 0.75
+				window.screen.availHeight * 0.75
 			);
 		});
-
 		observer.observe(container);
 	};
 
@@ -90,7 +89,7 @@
 		style="height: {offset - defaultOffset}px"
 		class="w-full {isOpen ? 'overflow-auto' : 'overflow-hidden'}"
 	>
-		<div use:trackSize class="w-full">
+		<div use:trackSize class="w-full" data-testid="slot">
 			<slot />
 		</div>
 	</div>

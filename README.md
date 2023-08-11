@@ -15,6 +15,3 @@ I have aimed to use as few libraries as possible and instead write everything fr
 ### Known issues
 
 The node module `@tabler/icons-svelte` currently contains an issue which breaks SSR on pages loading icons due to a wrong path in `package.json`. I have posted a temporary fix for this issue [here](https://github.com/tabler/tabler-icons/issues/693#issuecomment-1646684979). Hopefully it will be resolved soon.
-
-Ignore this line
-
